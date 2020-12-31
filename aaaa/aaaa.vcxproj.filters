@@ -3,7 +3,4 @@
   <ItemGroup>
     <MASM Include="BasicCommands.asm" />
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="Token.cpp" />
-  </ItemGroup>
 </Project>
