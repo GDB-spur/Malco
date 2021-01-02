@@ -21,3 +21,14 @@ OnMessageASM PROC
 OnMessageASM endp
 
 end
+
+public OnMessageASMTWO
+OnMessageASMTWO PROC
+	mov rax, offset MSG
+	ret
+OnMessageASMTWO endp
+end
+
+;public StringTrue
+;StringTrue proc
+	;cmp rax, 
