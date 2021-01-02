@@ -6,8 +6,9 @@
 
 extern "C"
 {
-    int OnMessageASM(void);
+    char* OnMessageASM(void);
     //int hello(void);
+    //char* = charpointer
 }
 
 
@@ -15,10 +16,10 @@ class MyClientClass : public SleepyDiscord::DiscordClient {
 public:
     using SleepyDiscord::DiscordClient::DiscordClient;
     void onMessage(SleepyDiscord::Message message) override {
-        if (message.startsWith("= hello"))
+        if (message.startsWith("="))
         {
             char buff[100];
-            snprintf(buff, sizeof(buff), "hello %d", OnMessageASM());
+            snprintf(buff, sizeof(buff), "hello %s", OnMessageASM());
             std::string buffAsStdStr = buff;
             sendMessage(message.channelID, buffAsStdStr);
         }
