@@ -8,7 +8,7 @@
 
 MSG			DB 'MASM', 0
 MONE		DB 'Brayconn, '
-MTWO		DB 'Txin, '
+MTWO		DB 'Txin, Smudge, Kayo, Spur, '
 MTHREE		DB 'how are you?', 0
 
 .code
