@@ -22,10 +22,17 @@ MTHREE		DB 'how are you?', 0
 .code
 public OnMessageASM
 OnMessageASM PROC
-	inc RAX
+	;pop rcx
+	mov rcx, [rsp]
+	cmp byte ptr [rcx], 3D
+	je myjumplocation
+	mov rax, 0
+	ret
+
+myjumplocation:
 	mov RAX, offset MONE
-	cmp rax, 1
-	mov rax, offset MTWO
+	;cmp rax, 1
+	;mov rax, offset MTWO
 	ret
 OnMessageASM endp
 
