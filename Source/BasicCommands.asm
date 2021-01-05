@@ -16,23 +16,28 @@
 
 MSG			DB 'MASM', 0
 MONE		DB 'Brayconn, ', 0
-MTWO		DB 'Txin, Smudge, Kayo, Spur, ', 0
-MTHREE		DB 'how are you?', 0
+HOWGIF		DB 'https://imgur.com/gallery/8cfRt', 0
+RESPONSE	DB 'how are you?', 0
 
 .code
 public OnMessageASM
 OnMessageASM PROC
 	;pop rcx
 	;mov rcx, [rsp]
-	cmp byte ptr [rcx], 3Dh
+	cmp byte ptr [rcx], 3dh
 	je myjumplocation
+	cmp byte ptr [rcx], 2dh
+	je myjumplocationtwo
 	mov rax, 0
 	ret
 
 myjumplocation:
-	mov RAX, offset MTHREE
+	mov RAX, offset RESPONSE
 	;cmp rax, 1
 	;mov rax, offset MTWO
+	ret
+myjumplocationtwo:
+	mov RAX, offset HowGif
 	ret
 OnMessageASM endp
 
