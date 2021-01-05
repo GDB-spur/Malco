@@ -15,7 +15,7 @@
  ;Functions
 
 MSG			DB 'MASM', 0
-MONE		DB 'Brayconn, ', 0
+BRAYCONN	DB 'Brayconn moment ', 0
 HOWGIF		DB 'https://imgur.com/gallery/8cfRt', 0
 RESPONSE	DB 'how are you?', 0
 
@@ -28,6 +28,8 @@ OnMessageASM PROC
 	je myjumplocation
 	cmp byte ptr [rcx], 2dh
 	je myjumplocationtwo
+	cmp byte ptr [rcx], 5fh
+	je myjumplocationthree
 	mov rax, 0
 	ret
 
@@ -37,19 +39,14 @@ myjumplocation:
 	;mov rax, offset MTWO
 	ret
 myjumplocationtwo:
-	mov RAX, offset HowGif
+	mov RAX, offset HOWGIF
+	ret
+myjumplocationthree:
+	mov RAX, offset BRAYCONN
 	ret
 OnMessageASM endp
 
 end
-
-public OnMessageASMTWO
-OnMessageASMTWO PROC
-	mov rax, offset MSG
-	ret
-OnMessageASMTWO endp
-end
-
 ;public StringTrue
 ;StringTrue proc
 	;cmp rax, 
