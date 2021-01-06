@@ -3,7 +3,7 @@
 ;.386
 ;.model small,c
 ;.stack 4096
-
+extern strcmp:proc
 .data
 ;Calling certain variables from C
 
@@ -14,35 +14,46 @@
 
  ;Functions
 
-MSG			DB 'MASM', 0
-BRAYCONN	DB 'Brayconn moment ', 0
-HOWGIF		DB 'https://imgur.com/gallery/8cfRt', 0
-RESPONSE	DB 'how are you?', 0
+BRAYMESSAGE	DB 'Brayconn moment https://media.discordapp.net/avatars/145351267256893440/e834a22a03021ef131522ffa84ae7d26.png?size=4096', 0
+HOWMESSAGE	DB 'https://imgur.com/gallery/8cfRt', 0
+HIMESSAGE	DB 'how are you?', 0
+
+  ;Commands
+HOW			DB '=how', 0
+BRAY		DB '=bray', 0
+HI			DB '=hi', 0
 
 .code
 public OnMessageASM
 OnMessageASM PROC
 	;pop rcx
-	;mov rcx, [rsp]
-	cmp byte ptr [rcx], 3dh
-	je myjumplocation
-	cmp byte ptr [rcx], 2dh
-	je myjumplocationtwo
-	cmp byte ptr [rcx], 5fh
-	je myjumplocationthree
+	;mov rcx, [
+	mov rdi, rcx
+	mov rdx, offset HOW
+	call strcmp
+	cmp rax, 0
+	jz howresponse
+	mov rcx, rdi
+	mov rdx, offset BRAY
+	call strcmp
+	cmp rax, 0
+	jz brayresponse
+	mov rcx, rdi
+	mov rdx, offset HI
+	call strcmp
+	cmp rax, 0
+	jz hiresponse
 	mov rax, 0
 	ret
 
-myjumplocation:
-	mov RAX, offset RESPONSE
-	;cmp rax, 1
-	;mov rax, offset MTWO
+howresponse:
+	mov RAX, offset HOWMESSAGE
 	ret
-myjumplocationtwo:
-	mov RAX, offset HOWGIF
+brayresponse:
+	mov RAX, offset BRAYMESSAGE
 	ret
-myjumplocationthree:
-	mov RAX, offset BRAYCONN
+hiresponse:
+	mov RAX, offset HIMESSAGE
 	ret
 OnMessageASM endp
 
