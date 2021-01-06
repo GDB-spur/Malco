@@ -18,12 +18,14 @@ BRAYMESSAGE	DB 'Brayconn moment https://media.discordapp.net/avatars/14535126725
 HOWMESSAGE	DB 'https://imgur.com/gallery/8cfRt', 0
 HIMESSAGE	DB 'how are you?', 0
 MUFFINMESSAGE DB 'No muffins for you :3', 0
+FORMATMESSAGE	DB '~~crossed out~~ *italics* ***bold italics*** __underlined__ ||spoiler|| `code box` ```big code box```', 0
 
   ;Commands
 HOW			DB '=how', 0
 BRAY		DB '=bray', 0
 HI			DB '=hi', 0
 MUFFIN		DB '=muffin', 0
+FORMAT		DB '=format', 0
 
 .code
 public OnMessageASM
@@ -50,7 +52,13 @@ OnMessageASM PROC
 	call strcmp
 	cmp rax, 0
 	jz muffinresponse
+	mov rcx, rdi
+	mov rdx, offset FORMAT
+	call strcmp
+	cmp rax, 0
+	jz formatresponse
 	mov rax, 0
+
 	ret
 
 howresponse:
@@ -64,6 +72,9 @@ hiresponse:
 	ret
 muffinresponse:
 	mov rax, offset MUFFINMESSAGE
+	ret
+formatresponse:
+	mov rax, offset FORMATMESSAGE
 	ret
 OnMessageASM endp
 
