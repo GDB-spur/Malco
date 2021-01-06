@@ -17,11 +17,13 @@ extern strcmp:proc
 BRAYMESSAGE	DB 'Brayconn moment https://media.discordapp.net/avatars/145351267256893440/e834a22a03021ef131522ffa84ae7d26.png?size=4096', 0
 HOWMESSAGE	DB 'https://imgur.com/gallery/8cfRt', 0
 HIMESSAGE	DB 'how are you?', 0
+MUFFINMESSAGE DB 'No muffins for you :3', 0
 
   ;Commands
 HOW			DB '=how', 0
 BRAY		DB '=bray', 0
 HI			DB '=hi', 0
+MUFFIN		DB '=muffin', 0
 
 .code
 public OnMessageASM
@@ -43,6 +45,11 @@ OnMessageASM PROC
 	call strcmp
 	cmp rax, 0
 	jz hiresponse
+	mov rcx, rdi
+	mov rdx, offset MUFFIN
+	call strcmp
+	cmp rax, 0
+	jz muffinresponse
 	mov rax, 0
 	ret
 
@@ -54,6 +61,9 @@ brayresponse:
 	ret
 hiresponse:
 	mov RAX, offset HIMESSAGE
+	ret
+muffinresponse:
+	mov rax, offset MUFFINMESSAGE
 	ret
 OnMessageASM endp
 
