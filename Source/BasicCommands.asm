@@ -1,4 +1,4 @@
-;Testing program
+﻿;Testing program
 ;Spur
 ;.386
 ;.model small,c
@@ -17,15 +17,24 @@ extern strcmp:proc
 BRAYMESSAGE	DB 'Brayconn moment https://media.discordapp.net/avatars/145351267256893440/e834a22a03021ef131522ffa84ae7d26.png?size=4096', 0
 HOWMESSAGE	DB 'https://imgur.com/gallery/8cfRt', 0
 HIMESSAGE	DB 'how are you?', 0
-MUFFINMESSAGE DB 'No muffins for you :3', 0
+MUFFINMESSAGE db "No muffins for you :3..."
+			  DB "Unless you ask nicely :)", 0
 FORMATMESSAGE	DB '~~crossed out~~ *italics* ***bold italics*** __underlined__ ||spoiler|| `code box` ```big code box```', 0
-
+HELPMESSAGE		DB "```css", 10
+	DB "{All commands will start with and '=' symbol!}", 10
+	DB "[=how] -- Sends in an inside joke gif of a cat.", 10
+	DB "[=bray] -- Replys to the one and only, Brayconn.", 10
+	DB "[=hi] -- Replies to you :)", 10
+	DB "[=muffin] -- NO MUFFINS FOR YOU!!!.", 10
+	DB "[=format] -- A temporary test command trying out the different formats.", 10
+	DB "[=help] -- A command that you just used and displays all of the commands that this bot has.```", 0
   ;Commands
 HOW			DB '=how', 0
 BRAY		DB '=bray', 0
 HI			DB '=hi', 0
 MUFFIN		DB '=muffin', 0
 FORMAT		DB '=format', 0
+HELP		DB '=help', 0
 
 .code
 public OnMessageASM
@@ -57,6 +66,11 @@ OnMessageASM PROC
 	call strcmp
 	cmp rax, 0
 	jz formatresponse
+	mov rcx, rdi
+	mov rdx, offset HELP
+	call strcmp
+	cmp rax, 0
+	jz helpresponse
 	mov rax, 0
 
 	ret
@@ -75,6 +89,9 @@ muffinresponse:
 	ret
 formatresponse:
 	mov rax, offset FORMATMESSAGE
+	ret
+helpresponse:
+	mov rax, offset HELPMESSAGE
 	ret
 OnMessageASM endp
 
