@@ -17,7 +17,7 @@ extern strcmp:proc
 BRAYMESSAGE	DB 'Brayconn moment https://media.discordapp.net/avatars/145351267256893440/e834a22a03021ef131522ffa84ae7d26.png?size=4096', 0
 HOWMESSAGE	DB 'https://imgur.com/gallery/8cfRt', 0
 HIMESSAGE	DB 'how are you?', 0
-MUFFINMESSAGE DB "No muffins for you :3..."
+MUFFINMESSAGE DB "No muffins for you :3...", 10
 			  DB "Unless you ask nicely :)", 0
 FORMATMESSAGE	DB '~~crossed out~~ *italics* ***bold italics*** __underlined__ ||spoiler|| `code box` ```big code box```', 0
 HELPMESSAGE		DB "```css", 10
@@ -27,7 +27,11 @@ HELPMESSAGE		DB "```css", 10
 	DB "[=hi] -- Replies to you :)", 10
 	DB "[=muffin] -- NO MUFFINS FOR YOU!!!.", 10
 	DB "[=format] -- A temporary test command trying out the different formats.", 10
+	DB "[=smudge] -- Replys to the one and only, Smudge.", 10
+	DB "[=txin] -- Replys to the one and only, Txin.", 10
 	DB "[=help] -- A command that you just used and displays all of the commands that this bot has.```", 0
+SMUDGEMESSAGE	DB 'h mmm m mm m <:aaaa:797489022111842314>', 0
+TXINMESSAGE		DB 'This is Txin message', 0
   ;Commands
 HOW			DB '=how', 0
 BRAY		DB '=bray', 0
@@ -35,6 +39,8 @@ HI			DB '=hi', 0
 MUFFIN		DB '=muffin', 0
 FORMAT		DB '=format', 0
 HELP		DB '=help', 0
+SMUDGE		DB '=smudge', 0
+TXIN		DB '=txin', 0
 
 .code
 public OnMessageASM
@@ -71,7 +77,18 @@ OnMessageASM PROC
 	call strcmp
 	cmp rax, 0
 	jz helpresponse
+	mov rcx, rdi
+	mov rdx, offset SMUDGE
+	call strcmp
+	cmp rax, 0
+	jz smudgeresponse
+	mov rcx, rdi
+	mov rdx, offset TXIN
+	call strcmp
+	cmp rax, 0
+	jz txinresponse
 	mov rax, 0
+
 
 	ret
 
@@ -92,6 +109,12 @@ formatresponse:
 	ret
 helpresponse:
 	mov rax, offset HELPMESSAGE
+	ret
+smudgeresponse:
+	mov rax, offset SMUDGEMESSAGE
+	ret
+txinresponse:
+	mov rax, offset TXINMESSAGE
 	ret
 OnMessageASM endp
 
