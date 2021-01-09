@@ -1,4 +1,4 @@
-﻿;Testing program
+
 ;Spur
 ;.386
 ;.model small,c
@@ -17,7 +17,7 @@ extern strcmp:proc
 BRAYMESSAGE	DB 'Brayconn moment https://media.discordapp.net/avatars/145351267256893440/e834a22a03021ef131522ffa84ae7d26.png?size=4096', 0
 HOWMESSAGE	DB 'https://imgur.com/gallery/8cfRt', 0
 HIMESSAGE	DB 'how are you?', 0
-MUFFINMESSAGE db "No muffins for you :3..."
+MUFFINMESSAGE DB "No muffins for you :3..."
 			  DB "Unless you ask nicely :)", 0
 FORMATMESSAGE	DB '~~crossed out~~ *italics* ***bold italics*** __underlined__ ||spoiler|| `code box` ```big code box```', 0
 HELPMESSAGE		DB "```css", 10
